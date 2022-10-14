@@ -5,7 +5,7 @@ authors = ["Vladimir Vrzić <vvrzic@gmail.com>"]
 categories = ["text-processing"]
 description = "Package for transliterationo of Ukrainian text by means of the Latin alphabet"
 keywords = ["transliteration", "romanization", "ukraine", "ukrainian"]
-license = "MIT OR Apache-2.0"
+license = "MIT"
 repository = "https://github.com/vrza/uaroman"
 edition = "2021"
 
