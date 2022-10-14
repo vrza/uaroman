@@ -161,6 +161,13 @@ mod test {
         convert_and_compare(cyrillic, expected);
     }
 
+    #[test]
+    fn rybchynskyi() {
+        let cyrillic = "Ю́рій Євге́нович Рибчи́нський";
+        let expected = "Yúrii Yevhénovych Rybchýnskyi";
+        convert_and_compare(cyrillic, expected);
+    }
+
     // examples from the paper submitted by Ukraine to
     // United Nations Group of Experts on Geographical Names
     // https://unstats.un.org/unsd/geoinfo/ungegn/docs/26th-gegn-docs/WP/WP21_Roma_system_Ukraine%20_engl._.pdf
