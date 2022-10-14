@@ -1,0 +1,25 @@
+= uaroman
+
+Transliterates Ukrainian cyrillic text by means of the Latin alphabet.
+
+Can be used either as a CLI tool, or as a Rust library function.
+
+## Examples
+
+### CLI Tool
+
+[source,shell]
+----
+$ echo "Володимир" | uaroman
+Volodymyr
+----
+
+### Library
+
+[source,php]
+----
+let cyrillic: String = "Володимир".to_string();
+let romanized: String = uaroman::romanize(cyrillic);
+
+assert_eq!("Volodymyr", romanized);
+----
