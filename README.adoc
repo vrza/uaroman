@@ -2,7 +2,7 @@
 
 Transliterates Ukrainian cyrillic text by means of the Latin alphabet.
 
-Can be used either as a CLI tool, or as a Rust library function.
+Can be used either as a CLI tool, or as a Rust library.
 
 ## Examples
 
@@ -10,16 +10,16 @@ Can be used either as a CLI tool, or as a Rust library function.
 
 [source,shell]
 ----
-$ echo "Ю́рій Євге́нович Рибчи́нський" | uaroman
-Yúrii Yevhénovych Rybchýnskyi
+$ echo "Юрій Рибчинський" | uaroman
+Yurii Rybchynskyi
 ----
 
 ### Library
 
 [source,php]
 ----
-let cyrillic: String = "Юрій Євгенович Рибчинський".to_string();
+let cyrillic: String = "Юрій Рибчинський".to_string();
 let romanized: String = uaroman::romanize(cyrillic);
 
-assert_eq!("Yurii Yevhenovych Rybchynskyi", romanized);
+assert_eq!("Yurii Rybchynskyi", romanized);
 ----
