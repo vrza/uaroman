@@ -18,8 +18,8 @@ Yúrii Yevhénovych Rybchýnskyi
 
 [source,php]
 ----
-let cyrillic: String = "Ю́рій Євге́нович Рибчи́нський".to_string();
+let cyrillic: String = "Юрій Євгенович Рибчинський".to_string();
 let romanized: String = uaroman::romanize(cyrillic);
 
-assert_eq!("Yúrii Yevhénovych Rybchýnskyi", romanized);
+assert_eq!("Yurii Yevhenovych Rybchynskyi", romanized);
 ----

@@ -90,10 +90,9 @@ fn is_non_initial_apostrophe(char: &char, initial: &bool) -> bool {
 /// # Examples
 ///
 /// ```
-/// let cyrillic: String = "Володимир".to_string();
+/// let cyrillic: String = "Юрій Рибчинський".to_string();
 /// let romanized: String = uaroman::romanize(cyrillic);
-///
-/// assert_eq!("Volodymyr", romanized);
+/// assert_eq!("Yurii Rybchynskyi", romanized);
 /// ```
 pub fn romanize(text: String) -> String {
     let mut initial: bool = true;
@@ -162,15 +161,15 @@ mod test {
     }
 
     #[test]
-    fn rybchynskyi() {
+    fn rybchynskyi_stressed() {
         let cyrillic = "Ю́рій Євге́нович Рибчи́нський";
         let expected = "Yúrii Yevhénovych Rybchýnskyi";
         convert_and_compare(cyrillic, expected);
     }
 
-    // examples from the paper submitted by Ukraine to
-    // United Nations Group of Experts on Geographical Names
-    // https://unstats.un.org/unsd/geoinfo/ungegn/docs/26th-gegn-docs/WP/WP21_Roma_system_Ukraine%20_engl._.pdf
+    // examples from the document prepared by Ukrainian experts for the
+    // 27th session of the UN Group of Experts on Geographical Names in 2012
+    // https://unstats.un.org/unsd/geoinfo/UNGEGN/docs/10th-uncsgn-docs/econf/E_CONF.101_84_Roman_system_Ukraine_eng.pdf
 
     #[test]
     fn a1() {
@@ -182,7 +181,6 @@ mod test {
         convert_and_compare("Андрій", "Andrii");
     }
 
-    // error in pdf, last character in Latin word is cyrillic "а" -- corrected here
     #[test]
     fn b1() {
         convert_and_compare("Борщагівка", "Borshchahivka");
@@ -378,7 +376,6 @@ mod test {
         convert_and_compare("Ніжин", "Nizhyn");
     }
 
-    // error in pdf, second "i" in Latin word is Ukrainian "і" -- corrected here
     #[test]
     fn n2() {
         convert_and_compare("Наталія", "Nataliia");
