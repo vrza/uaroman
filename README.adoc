@@ -1,6 +1,8 @@
 = uaroman
 
-Transliterates Ukrainian cyrillic text by means of the Latin alphabet.
+Transliterates Ukrainian Cyrillic text by means of the Latin alphabet.
+
+Uses the Ukrainian national transliteration system adopted by the Ukrainian government in 2010 and http://www.eki.ee/wgrs/res/res_10_9.htm[recognized by the United Nations in 2012].
 
 Can be used either as a CLI tool, or as a Rust library.
 
