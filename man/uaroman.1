@@ -1,0 +1,28 @@
+.Dd October 18, 2022
+.Dt UAROMAN 1
+.Os
+.Sh NAME
+.Nm uaroman
+.Nd transliterate Ukrainian Cyrillic to Latin
+.Sh SYNOPSIS
+.Nm
+.Op Ar
+.Sh DESCRIPTION
+The
+.Nm
+utility reads lines of UTF-8 Ukrainian Cyrillic text from input files and writes transliterated Latin text to standard output.
+
+If
+.Ar file
+is a single dash
+.Pq Sq Fl
+or absent,
+.Nm
+reads from the standard input.
+
+.Nm
+uses the Ukrainian national transliteration system adopted by the Ukrainian government in 2010 and recognized by the United Nations in 2012.
+.Sh COPYRIGHT
+Copyright Vladimir Vrzić.
+.Nm
+is available under the MIT License.
