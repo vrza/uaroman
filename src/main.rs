@@ -16,8 +16,9 @@ const EOL: &[u8; 1] = b"\n";
 fn main() -> io::Result<()> {
     let args: Vec<String> = env::args().collect();
     let program_name: &str = &args[0];
-    let input_filenames = if args.len() > 1
-        { args[1..].to_vec() } else { [DASH.to_string()].to_vec() };
+    let input_filenames =
+        if args.len() > 1 { args[1..].to_vec() }
+        else { [DASH.to_string()].to_vec() };
 
     let mut output_buffer = BufWriter::with_capacity(OUTPUT_BUFFER_SIZE, io::stdout().lock());
 
@@ -42,6 +43,8 @@ fn main() -> io::Result<()> {
             let _ = output_buffer.write(romanized_line.as_bytes());
             let _ = output_buffer.write(EOL);
         }
+
+        output_buffer.flush().unwrap();
     }
 
     Ok(())
