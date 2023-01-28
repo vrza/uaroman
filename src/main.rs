@@ -5,8 +5,6 @@ use std::io::BufReader;
 use std::io::BufWriter;
 use std::io::prelude::*;
 
-pub mod lib;
-
 // sufficiently large output buffer, to minimize syscall overhead
 // https://github.com/coreutils/coreutils/blob/master/src/ioblksize.h
 const OUTPUT_BUFFER_SIZE: usize = 128 * 1024;
@@ -38,8 +36,7 @@ fn main() -> io::Result<()> {
         };
 
         for line_result in reader.lines() {
-            let line: String = line_result?;
-            let romanized_line = lib::romanize(line);
+            let romanized_line = uaroman::romanize(line_result.unwrap().as_ref());
             let _ = output_buffer.write(romanized_line.as_bytes());
             let _ = output_buffer.write(EOL);
         }

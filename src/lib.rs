@@ -90,11 +90,11 @@ fn is_non_initial_apostrophe(char: &char, initial: &bool) -> bool {
 /// # Examples
 ///
 /// ```
-/// let cyrillic: String = "Юрій Рибчинський".to_string();
-/// let romanized: String = uaroman::romanize(cyrillic);
+/// let cyrillic: &str = "Юрій Рибчинський";
+/// let romanized: String = uaroman::romanize(&cyrillic);
 /// assert_eq!("Yurii Rybchynskyi", romanized);
 /// ```
-pub fn romanize(text: String) -> String {
+pub fn romanize(text: &str) -> String {
     let mut initial: bool = true;
     let mut after_z: bool = false;
     let mut after_non_initial_apostrophe: bool = false;
@@ -149,7 +149,7 @@ mod test {
     use super::*;
 
     fn convert_and_compare(cyrillic: &str, expected: &str) {
-        let romanized = romanize(cyrillic.to_string());
+        let romanized = romanize(&cyrillic);
         assert_eq!(romanized, expected);
     }
 
