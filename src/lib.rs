@@ -107,18 +107,18 @@ pub fn romanize(text: &str) -> String {
         if after_non_initial_apostrophe && !AFTER_APOSTROPHE_SET.contains(&input_char) {
             romanized_text.push_str(APOSTROPHE);
         }
-        if after_z && input_char == 'г' {
+        romanized_char = if after_z && input_char == 'г' {
             // special case: "зг" is transliterated as "zgh"
-            romanized_char = String::from("gh");
+            String::from("gh")
         } else if input_char == 'ь' || is_non_initial_apostrophe(&input_char, &initial) {
             // remove soft sign, hold non-initial apostrophe:
             // soft sign and diacritical apostrophe are not reproduced in Latin
-            romanized_char = String::from("");
+            String::from("")
         } else {
             // map input character to output string, using distinct
             // maps for characters in initial and non-initial position
             let map = if initial { &INITIAL_POSITION_MAP } else { &OTHER_POSITION_MAP };
-            romanized_char = match map.get(&input_char) {
+            match map.get(&input_char) {
                 Some(output_str) => {
                     initial = false;
                     output_str.to_string()
@@ -127,8 +127,8 @@ pub fn romanize(text: &str) -> String {
                     initial = true;
                     input_char.encode_utf8(&mut utf8_char_buf).to_string()
                 }
-            };
-        }
+            }
+        };
         // set flags for next iteration
         after_z = input_char == 'З' || input_char == 'з';
         after_non_initial_apostrophe = is_non_initial_apostrophe(&input_char, &initial);
