@@ -143,7 +143,7 @@ fn is_non_initial_apostrophe(char: &char, initial: &bool) -> bool {
     *char == '\'' && !initial.clone()
 }
 
-fn lookup<'a>(sorted_array: &'a [(char, &'static str); 64], input_char: &'a char) -> Option<&'a &'a str> {
+fn lookup<'a, 'b>(sorted_array: &'a [(char, &'static str); 64], input_char: &'b char) -> Option<&'b &'a str> {
     sorted_array
         .binary_search_by_key(&input_char, |(key, _)| key)
         .ok()
