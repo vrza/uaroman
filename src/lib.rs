@@ -1,6 +1,6 @@
 const APOSTROPHE: &'static str = "'";
 
-static INITIAL_POSITION_SORTED_ARRAY: [(char, &'static str); 64] = [
+static INITIAL_POSITION_SORTED_ARRAY: &[(char, &str)] = &[
     ('Є', "Ye"),
     ('І', "I"),
     ('Ї', "Yi"),
@@ -64,10 +64,10 @@ static INITIAL_POSITION_SORTED_ARRAY: [(char, &'static str); 64] = [
     ('і', "i"),
     ('ї', "yi"),
     ('Ґ', "G"),
-    ('ґ', "g")
+    ('ґ', "g"),
 ];
 
-static OTHER_POSITION_SORTED_ARRAY: [(char, &'static str); 64] = [
+static OTHER_POSITION_SORTED_ARRAY: &[(char, &str)] = &[
     ('Є', "Ie"),
     ('І', "I"),
     ('Ї', "I"),
@@ -131,23 +131,20 @@ static OTHER_POSITION_SORTED_ARRAY: [(char, &'static str); 64] = [
     ('і', "i"),
     ('ї', "i"),
     ('Ґ', "G"),
-    ('ґ', "g")
+    ('ґ', "g"),
 ];
 
-static AFTER_APOSTROPHE_SET: [char; 8] = [
-    'Є', 'Ї', 'Ю', 'Я',
-    'є', 'ї', 'ю', 'я'
-];
+static AFTER_APOSTROPHE_SET: &[char] = &['Є', 'Ї', 'Ю', 'Я', 'є', 'ї', 'ю', 'я'];
 
 fn is_non_initial_apostrophe(char: &char, initial: &bool) -> bool {
     *char == '\'' && !initial.clone()
 }
 
-fn lookup<'a>(sorted_array: &'static [(char, &'static str); 64], input_char: &'a char) -> Option<&'a &'static str> {
+fn lookup<'a>(sorted_array: &'a [(char, &str)], input_char: &char) -> Option<&'a str> {
     sorted_array
         .binary_search_by_key(&input_char, |(key, _)| key)
         .ok()
-        .map(|i| &sorted_array[i].1)
+        .map(|i| sorted_array[i].1)
 }
 
 /// Transliterates Ukrainian cyrillic text
@@ -184,12 +181,16 @@ pub fn romanize(text: &str) -> String {
         } else {
             // map input character to output string, using distinct
             // maps for characters in initial and non-initial position
-            let map = if initial { &INITIAL_POSITION_SORTED_ARRAY } else { &OTHER_POSITION_SORTED_ARRAY };
+            let map = if initial {
+                INITIAL_POSITION_SORTED_ARRAY
+            } else {
+                OTHER_POSITION_SORTED_ARRAY
+            };
             match lookup(map, &input_char) {
                 Some(output_str) => {
                     initial = false;
                     output_str.to_string()
-                },
+                }
                 _none => {
                     initial = true;
                     input_char.encode_utf8(&mut utf8_char_buf).to_string()
