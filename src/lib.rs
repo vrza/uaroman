@@ -1,87 +1,153 @@
-use phf::phf_map;
-use phf::phf_set;
-
 const APOSTROPHE: &'static str = "'";
 
-static INITIAL_POSITION_MAP: phf::Map<char, &'static str> = phf_map! {
-    'А' => "A", 'а' => "a",
-    'Б' => "B", 'б' => "b",
-    'В' => "V", 'в' => "v",
-    'Г' => "H", 'г' => "h",
-    'Ґ' => "G", 'ґ' => "g",
-    'Д' => "D", 'д' => "d",
-    'Е' => "E", 'е' => "e",
-    'Є' => "Ye", 'є' => "ye",
-    'Ж' => "Zh", 'ж' => "zh",
-    'З' => "Z", 'з' => "z",
-    'И' => "Y", 'и' => "y",
-    'І' => "I", 'і' => "i",
-    'Ї' => "Yi", 'ї' => "yi",
-    'Й' => "Y", 'й' => "y",
-    'К' => "K", 'к' => "k",
-    'Л' => "L", 'л' => "l",
-    'М' => "M", 'м' => "m",
-    'Н' => "N", 'н' => "n",
-    'О' => "O", 'о' => "o",
-    'П' => "P", 'п' => "p",
-    'Р' => "R", 'р' => "r",
-    'С' => "S", 'с' => "s",
-    'Т' => "T", 'т' => "t",
-    'У' => "U", 'у' => "u",
-    'Ф' => "F", 'ф' => "f",
-    'Х' => "Kh", 'х' => "kh",
-    'Ц' => "Ts", 'ц' => "ts",
-    'Ч' => "Ch", 'ч' => "ch",
-    'Ш' => "Sh", 'ш' => "sh",
-    'Щ' => "Shch", 'щ' => "shch",
-    'Ю' => "Yu", 'ю' => "yu",
-    'Я' => "Ya", 'я' => "ya"
-};
+static INITIAL_POSITION_SORTED_ARRAY: &[(char, &str)] = &[
+    ('Є', "Ye"),
+    ('І', "I"),
+    ('Ї', "Yi"),
+    ('А', "A"),
+    ('Б', "B"),
+    ('В', "V"),
+    ('Г', "H"),
+    ('Д', "D"),
+    ('Е', "E"),
+    ('Ж', "Zh"),
+    ('З', "Z"),
+    ('И', "Y"),
+    ('Й', "Y"),
+    ('К', "K"),
+    ('Л', "L"),
+    ('М', "M"),
+    ('Н', "N"),
+    ('О', "O"),
+    ('П', "P"),
+    ('Р', "R"),
+    ('С', "S"),
+    ('Т', "T"),
+    ('У', "U"),
+    ('Ф', "F"),
+    ('Х', "Kh"),
+    ('Ц', "Ts"),
+    ('Ч', "Ch"),
+    ('Ш', "Sh"),
+    ('Щ', "Shch"),
+    ('Ю', "Yu"),
+    ('Я', "Ya"),
+    ('а', "a"),
+    ('б', "b"),
+    ('в', "v"),
+    ('г', "h"),
+    ('д', "d"),
+    ('е', "e"),
+    ('ж', "zh"),
+    ('з', "z"),
+    ('и', "y"),
+    ('й', "y"),
+    ('к', "k"),
+    ('л', "l"),
+    ('м', "m"),
+    ('н', "n"),
+    ('о', "o"),
+    ('п', "p"),
+    ('р', "r"),
+    ('с', "s"),
+    ('т', "t"),
+    ('у', "u"),
+    ('ф', "f"),
+    ('х', "kh"),
+    ('ц', "ts"),
+    ('ч', "ch"),
+    ('ш', "sh"),
+    ('щ', "shch"),
+    ('ю', "yu"),
+    ('я', "ya"),
+    ('є', "ye"),
+    ('і', "i"),
+    ('ї', "yi"),
+    ('Ґ', "G"),
+    ('ґ', "g"),
+];
 
-static OTHER_POSITION_MAP: phf::Map<char, &'static str> = phf_map! {
-    'А' => "A", 'а' => "a",
-    'Б' => "B", 'б' => "b",
-    'В' => "V", 'в' => "v",
-    'Г' => "H", 'г' => "h",
-    'Ґ' => "G", 'ґ' => "g",
-    'Д' => "D", 'д' => "d",
-    'Е' => "E", 'е' => "e",
-    'Є' => "Ie", 'є' => "ie",
-    'Ж' => "Zh", 'ж' => "zh",
-    'З' => "Z", 'з' => "z",
-    'И' => "Y", 'и' => "y",
-    'І' => "I", 'і' => "i",
-    'Ї' => "I", 'ї' => "i",
-    'Й' => "I", 'й' => "i",
-    'К' => "K", 'к' => "k",
-    'Л' => "L", 'л' => "l",
-    'М' => "M", 'м' => "m",
-    'Н' => "N", 'н' => "n",
-    'О' => "O", 'о' => "o",
-    'П' => "P", 'п' => "p",
-    'Р' => "R", 'р' => "r",
-    'С' => "S", 'с' => "s",
-    'Т' => "T", 'т' => "t",
-    'У' => "U", 'у' => "u",
-    'Ф' => "F", 'ф' => "f",
-    'Х' => "Kh", 'х' => "kh",
-    'Ц' => "Ts", 'ц' => "ts",
-    'Ч' => "Ch", 'ч' => "ch",
-    'Ш' => "Sh", 'ш' => "sh",
-    'Щ' => "Shch", 'щ' => "shch",
-    'Ю' => "Iu", 'ю' => "iu",
-    'Я' => "Ia", 'я' => "ia"
-};
+static OTHER_POSITION_SORTED_ARRAY: &[(char, &str)] = &[
+    ('Є', "Ie"),
+    ('І', "I"),
+    ('Ї', "I"),
+    ('А', "A"),
+    ('Б', "B"),
+    ('В', "V"),
+    ('Г', "H"),
+    ('Д', "D"),
+    ('Е', "E"),
+    ('Ж', "Zh"),
+    ('З', "Z"),
+    ('И', "Y"),
+    ('Й', "I"),
+    ('К', "K"),
+    ('Л', "L"),
+    ('М', "M"),
+    ('Н', "N"),
+    ('О', "O"),
+    ('П', "P"),
+    ('Р', "R"),
+    ('С', "S"),
+    ('Т', "T"),
+    ('У', "U"),
+    ('Ф', "F"),
+    ('Х', "Kh"),
+    ('Ц', "Ts"),
+    ('Ч', "Ch"),
+    ('Ш', "Sh"),
+    ('Щ', "Shch"),
+    ('Ю', "Iu"),
+    ('Я', "Ia"),
+    ('а', "a"),
+    ('б', "b"),
+    ('в', "v"),
+    ('г', "h"),
+    ('д', "d"),
+    ('е', "e"),
+    ('ж', "zh"),
+    ('з', "z"),
+    ('и', "y"),
+    ('й', "i"),
+    ('к', "k"),
+    ('л', "l"),
+    ('м', "m"),
+    ('н', "n"),
+    ('о', "o"),
+    ('п', "p"),
+    ('р', "r"),
+    ('с', "s"),
+    ('т', "t"),
+    ('у', "u"),
+    ('ф', "f"),
+    ('х', "kh"),
+    ('ц', "ts"),
+    ('ч', "ch"),
+    ('ш', "sh"),
+    ('щ', "shch"),
+    ('ю', "iu"),
+    ('я', "ia"),
+    ('є', "ie"),
+    ('і', "i"),
+    ('ї', "i"),
+    ('Ґ', "G"),
+    ('ґ', "g"),
+];
 
-static AFTER_APOSTROPHE_SET: phf::Set<char> = phf_set! {
-    'я', 'Я',
-    'ю', 'Ю',
-    'є', 'Є',
-    'ї', 'Ї'
-};
+static AFTER_APOSTROPHE_SET: [char; 8] = [
+    'Є', 'Ї', 'Ю', 'Я',
+    'є', 'ї', 'ю', 'я'
+];
 
 fn is_non_initial_apostrophe(char: &char, initial: &bool) -> bool {
     *char == '\'' && !initial.clone()
+}
+
+fn lookup<'a>(sorted_array: &[(char, &'a str)], input_char: &char) -> Option<&'a str> {
+    sorted_array
+        .binary_search_by_key(&input_char, |(key, _)| key)
+        .ok()
+        .map(|i| sorted_array[i].1)
 }
 
 /// Transliterates Ukrainian cyrillic text
@@ -107,6 +173,7 @@ pub fn romanize(text: &str) -> String {
         if after_non_initial_apostrophe && !AFTER_APOSTROPHE_SET.contains(&input_char) {
             romanized_text.push_str(APOSTROPHE);
         }
+        // compute next output character
         romanized_char = if after_z && input_char == 'г' {
             // special case: "зг" is transliterated as "zgh"
             String::from("gh")
@@ -117,8 +184,12 @@ pub fn romanize(text: &str) -> String {
         } else {
             // map input character to output string, using distinct
             // maps for characters in initial and non-initial position
-            let map = if initial { &INITIAL_POSITION_MAP } else { &OTHER_POSITION_MAP };
-            match map.get(&input_char) {
+            let map = if initial {
+                INITIAL_POSITION_SORTED_ARRAY
+            } else {
+                OTHER_POSITION_SORTED_ARRAY
+            };
+            match lookup(map, &input_char) {
                 Some(output_str) => {
                     initial = false;
                     output_str.to_string()
