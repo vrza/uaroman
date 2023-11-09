@@ -134,7 +134,10 @@ static OTHER_POSITION_SORTED_ARRAY: &[(char, &str)] = &[
     ('ґ', "g"),
 ];
 
-static AFTER_APOSTROPHE_SET: &[char] = &['Є', 'Ї', 'Ю', 'Я', 'є', 'ї', 'ю', 'я'];
+static AFTER_APOSTROPHE_SET: [char; 8] = [
+    'Є', 'Ї', 'Ю', 'Я',
+    'є', 'ї', 'ю', 'я'
+];
 
 fn is_non_initial_apostrophe(char: &char, initial: &bool) -> bool {
     *char == '\'' && !initial.clone()
@@ -190,7 +193,7 @@ pub fn romanize(text: &str) -> String {
                 Some(output_str) => {
                     initial = false;
                     output_str.to_string()
-                }
+                },
                 _none => {
                     initial = true;
                     input_char.encode_utf8(&mut utf8_char_buf).to_string()
