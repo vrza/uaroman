@@ -238,6 +238,13 @@ mod test {
         convert_and_compare(cyrillic, expected);
     }
 
+    #[test]
+    fn readme() {
+        let cyrillic: &str = "Юрій Рибчинський";
+        let romanized: String = romanize(cyrillic);
+        assert_eq!("Yurii Rybchynskyi", romanized);
+    }
+
     // examples from the document prepared by Ukrainian experts for the
     // 27th session of the UN Group of Experts on Geographical Names in 2012
     // https://unstats.un.org/unsd/geoinfo/UNGEGN/docs/10th-uncsgn-docs/econf/E_CONF.101_84_Roman_system_Ukraine_eng.pdf

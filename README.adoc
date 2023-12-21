@@ -6,9 +6,9 @@ Uses the Ukrainian national transliteration system adopted by the Ukrainian gove
 
 Can be used either as a CLI tool, or as a Rust library.
 
-## Examples
+== Examples
 
-### CLI Tool
+=== CLI Tool
 
 [source,shell]
 ----
@@ -16,12 +16,11 @@ $ echo "Юрій Рибчинський" | uaroman
 Yurii Rybchynskyi
 ----
 
-### Library
+=== Library
 
-[source,php]
+[source,rust]
 ----
-let cyrillic: String = "Юрій Рибчинський".to_string();
-let romanized: String = uaroman::romanize(cyrillic);
-
+let cyrillic: &str = "Юрій Рибчинський";
+let romanized: String = romanize(cyrillic);
 assert_eq!("Yurii Rybchynskyi", romanized);
 ----
